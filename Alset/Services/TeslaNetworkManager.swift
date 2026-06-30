@@ -11,10 +11,13 @@ struct TeslaNetworkConfiguration: Sendable {
     let supabaseAnonKey: String
     let supabaseAccessToken: String
     let authRecordID: UUID?
+    /// Fallback when `tesla_auth.vin` is not set yet.
+    let vin: String?
 
     static let defaultFleetAPIBaseURL = URL(string: "https://fleet-api.prd.api.tesla.com")!
     static let defaultAuthBaseURL = URL(string: "https://fleet-auth.prd.vn.cloud.tesla.com")!
     static let defaultSupabaseURL = URL(string: "https://eqgxfdbaxptmokniggar.supabase.co")!
+    static let defaultVIN = "LRW3F7EJ6TC864153"
 }
 
 // MARK: - Errors
@@ -254,7 +257,7 @@ final class TeslaNetworkManager: Sendable {
     private func fetchVehicleData(forceTokenRefresh: Bool) async throws -> TeslaVehicleData {
         let record = try await fetchAuthRecord()
 
-        guard let vin = record.vin, !vin.isEmpty else {
+        guard let vin = resolvedVIN(from: record) else {
             throw TeslaNetworkError.missingVIN
         }
 
@@ -317,6 +320,13 @@ final class TeslaNetworkManager: Sendable {
     }
 
     // MARK: - Helpers
+
+    private func resolvedVIN(from record: TeslaAuthRecord) -> String? {
+        if let vin = record.vin, !vin.isEmpty { return vin }
+        if let vin = configuration.vin, !vin.isEmpty { return vin }
+        if !Self.defaultVIN.isEmpty { return Self.defaultVIN }
+        return nil
+    }
 
     private func applySupabaseHeaders(to request: inout URLRequest) {
         request.setValue(configuration.supabaseAnonKey, forHTTPHeaderField: "apikey")

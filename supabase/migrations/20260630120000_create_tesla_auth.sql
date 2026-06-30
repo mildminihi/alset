@@ -59,5 +59,5 @@ create policy "Authenticated users can update tesla_auth"
 --     '<access_token>',
 --     '<refresh_token>',
 --     now() + interval '8 hours',
---     '<optional_vin>'
+--     'LRW3F7EJ6TC864153'
 -- );
