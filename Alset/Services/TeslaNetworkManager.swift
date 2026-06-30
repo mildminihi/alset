@@ -14,6 +14,7 @@ struct TeslaNetworkConfiguration: Sendable {
 
     static let defaultFleetAPIBaseURL = URL(string: "https://fleet-api.prd.api.tesla.com")!
     static let defaultAuthBaseURL = URL(string: "https://fleet-auth.prd.vn.cloud.tesla.com")!
+    static let defaultSupabaseURL = URL(string: "https://eqgxfdbaxptmokniggar.supabase.co")!
 }
 
 // MARK: - Errors
