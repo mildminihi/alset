@@ -60,3 +60,7 @@ fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots/**/*.png
 fastlane/test_output
+
+# Local secrets (copy from Secrets.xcconfig.example)
+Secrets.xcconfig
+Alset/Config/Secrets.xcconfig

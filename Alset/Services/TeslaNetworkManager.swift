@@ -7,6 +7,8 @@ struct TeslaNetworkConfiguration: Sendable {
     let fleetAPIBaseURL: URL
     let authBaseURL: URL
     let teslaClientID: String
+    /// Required for authorization-code exchange; not needed for refresh-only calls.
+    let teslaClientSecret: String?
     let supabaseURL: URL
     let supabaseAnonKey: String
     let supabaseAccessToken: String
@@ -18,6 +20,7 @@ struct TeslaNetworkConfiguration: Sendable {
     static let defaultAuthBaseURL = URL(string: "https://fleet-auth.prd.vn.cloud.tesla.com")!
     static let defaultSupabaseURL = URL(string: "https://eqgxfdbaxptmokniggar.supabase.co")!
     static let defaultVIN = "LRW3F7EJ6TC864153"
+    static let defaultClientID = "4ef89387-e78c-4cf4-9b65-b0b24a3e69df"
 }
 
 // MARK: - Errors
