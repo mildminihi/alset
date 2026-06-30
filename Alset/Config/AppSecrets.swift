@@ -1,7 +1,8 @@
 import Foundation
 
-/// Reads non-secret and secret values injected via Info.plist / xcconfig.
+/// Reads values injected via Info.plist / xcconfig (`Secrets.xcconfig`).
 enum AppSecrets {
+    /// Supabase **publishable** key (`sb_publishable_...`) or legacy `anon` JWT. Never use `sb_secret_...` here.
     static var supabaseAnonKey: String {
         bundleValue(for: "SUPABASE_ANON_KEY")
     }
